@@ -20,11 +20,11 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.get("/new", (req, res) => {
-  res.redirect(`/${uuidV4()}`);
+app.get("/room", (req, res) => {
+  res.redirect(`/room/${uuidV4()}`);
 });
 
-app.get("/:room", (req, res) => {
+app.get("/room/:room", (req, res) => {
   res.render("room", { roomId: req.params.room });
 });
 
@@ -39,6 +39,7 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(3000, () => {
-  console.log("Server running on http://localhost:3000");
-});
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () =>
+  console.log(`Server running on http://localhost:${PORT}`)
+);
